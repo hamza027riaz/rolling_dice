@@ -20,7 +20,8 @@ class _UI extends State<UI>
   int sum3 = 0;
   int sum4 = 0;
   int click = 0;
-
+  int  click4 = 0;
+  int flag=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,8 +69,8 @@ class _UI extends State<UI>
                             child: Image.asset(
                                 'assets/images/dice$dice_number1.png'),
                             onPressed: () {
-                              updatedice();
-                            },
+                              updatedice1();
+                               },
                           ),
                         ],
                       ),
@@ -92,7 +93,7 @@ class _UI extends State<UI>
                             child: Image.asset(
                                 'assets/images/dice$dice_number2.png'),
                             onPressed: () {
-                              updatedice();
+                              updatedice2();
                             },
                           ),
                         ],
@@ -124,7 +125,7 @@ class _UI extends State<UI>
                             child: Image.asset(
                                 'assets/images/dice$dice_number3.png'),
                             onPressed: () {
-                              updatedice();
+                              updatedice3();
                             },
                           ),
                         ],
@@ -148,7 +149,7 @@ class _UI extends State<UI>
                             child: Image.asset(
                                 'assets/images/dice$dice_number4.png'),
                             onPressed: () {
-                              updatedice();
+                              updatedice4();
                             },
                           ),
                         ],
@@ -181,31 +182,117 @@ class _UI extends State<UI>
     );
   }
 
-  void updatedice() {
+  void updatedice1() {
     setState(() {
-      dice_number1 = Random().nextInt(6) + 1;
-      dice_number2 = Random().nextInt(6) + 1;
-      dice_number3 = Random().nextInt(6) + 1;
-      dice_number4 = Random().nextInt(6) + 1;
-      sum1 = sum1 + dice_number1;
-      sum2 = sum2 + dice_number2;
-      sum3 = sum3 + dice_number3;
-      sum4 = sum4 + dice_number4;
-      click++;
-      print(click);
-      if (click == 10) {
-        if (sum1 > sum2 && sum1 > sum3 && sum1 > sum4) {
-          //print('win 1st');
-          showResultDialog('1st Player Wins');
-        } else if (sum2 > sum3 && sum2 > sum4 && sum2 > sum1) {
-          showResultDialog('2nd Player Wins');
-        } else if (sum3 > sum1 && sum3 > sum1 && sum3 > sum4) {
-          showResultDialog('3rd Player Wins');
-        } else if (sum4 > sum1 && sum4 > sum2 && sum4 > sum3) {
-          showResultDialog('4th Player Wins');
+
+      if(flag==0)
+        {
+
+          dice_number1 = Random().nextInt(6) + 1;
+          sum1 = sum1 + dice_number1;
+          if (dice_number1 == 6) {
+            click--;
+          }
+          click++;
+          flag=1;
+          if(flag==1)
+            {
+              UI();
+            }
+
+
         }
-      }
+
+
     });
+  }
+
+  void updatedice2() {
+    setState(() {
+
+      if(flag==1)
+      {
+
+        dice_number2 = Random().nextInt(6) + 1;
+        sum2 = sum2 + dice_number2;
+        if (dice_number2 == 6) {
+          click--;
+        }
+        click++;
+        flag=2;
+        if(flag==2)
+        {
+          UI();
+        }
+
+
+      }
+
+
+    });
+  }
+
+  void updatedice3() {
+    setState(() {
+
+      if(flag==2)
+      {
+
+        dice_number3 = Random().nextInt(6) + 1;
+        sum3 = sum3 + dice_number3;
+        if (dice_number3 == 6) {
+          click--;
+        }
+        click++;
+        flag=3;
+        if(flag==3)
+        {
+          UI();
+        }
+
+
+      }
+
+
+    });
+  }
+
+  void updatedice4() {
+    setState(() {
+      if(flag==3)
+      {
+
+        dice_number4 = Random().nextInt(6) + 1;
+        sum4 = sum4 + dice_number4;
+        if (dice_number4 == 6) {
+          click--;
+        }
+        click++;
+        flag=4;
+        if(flag==4)
+        {
+          UI();
+        }
+
+
+      }
+
+
+    });
+  }
+
+  void sumresult() {
+    if (click4 == 10) {
+      if (sum1 > sum2 && sum1 > sum3 && sum1 > sum4) {
+        showResultDialog('1st Player Wins');
+      } else if (sum2 > sum3 && sum2 > sum4 && sum2 > sum1) {
+        showResultDialog('2nd Player Wins');
+      } else if (sum3 > sum1 && sum3 > sum1 && sum3 > sum4) {
+        showResultDialog('3rd Player Wins');
+      } else if (sum4 > sum1 && sum4 > sum2 && sum4 > sum3) {
+        showResultDialog('4th Player Wins');
+      }
+    }
   }
 
   void showResultDialog(String playerName) async {
